@@ -6,6 +6,7 @@ from wasserstein_gan import WassGan
 parser = argparse.ArgumentParser()
 
 parser.add_argument("cmd", help=argparse.SUPPRESS, nargs="*")
+parser.add_argument('--dataset', nargs='?', default='bedroom', type=str)
 parser.add_argument('--train_folder', nargs='?', default='train', type=str)
 parser.add_argument('--in_channels', nargs='?', default=3, type=int)
 parser.add_argument('--batch_size', nargs='?', default=128, type=int)
