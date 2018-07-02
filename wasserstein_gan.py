@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import torch.optim as optim
 import torch
 import time
@@ -8,6 +7,10 @@ from torch.utils.data import *
 from util import helpers as helper
 from util import loaders as load
 from models import networks as n
+import matplotlib
+matplotlib.use('agg')
+import matplotlib.pyplot as plt
+
 
 ############################################################################
 # Train
