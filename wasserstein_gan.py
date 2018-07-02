@@ -1,6 +1,3 @@
-##########################################################
-# Train
-######################################################
 import matplotlib.pyplot as plt
 import torch.optim as optim
 import torch
@@ -8,11 +5,13 @@ import time
 from torch.autograd import Variable
 from tqdm import tqdm
 from torch.utils.data import *
-
 from util import helpers as helper
 from util import loaders as load
 from models import networks as n
 
+############################################################################
+# Train
+############################################################################
 
 class WassGan:
     """

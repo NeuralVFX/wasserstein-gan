@@ -1,15 +1,14 @@
-########################################################################
-# Networks
-############################################################################
-
-
 import torch.nn.functional as F
 from torch.utils.data import *
 import torch.nn as nn
 
 
+############################################################################
+# Re-usable blocks
+############################################################################
+
 class ConvTrans(nn.Module):
-    """One Block to be used as conv and transpose throughout the model, may need to seperate into twop classes"""
+    """One Block to be used as conv and transpose throughout the model"""
 
     def __init__(self, ic=4, oc=4, kernel_size=3, block_type='res', padding=None, stride=2, use_bn=True):
         super(ConvTrans, self).__init__()
@@ -19,8 +18,8 @@ class ConvTrans(nn.Module):
             padding = int(kernel_size // 2 // stride)
 
         if block_type == 'up':
-            self.conv = nn.ConvTranspose2d(in_channels=ic, out_channels=oc, padding=padding,
-                                           kernel_size=kernel_size, stride=stride, bias=False)
+            self.conv = nn.ConvTranspose2d(in_channels=ic, out_channels=oc, padding=padding, kernel_size=kernel_size,
+                                           stride=stride, bias=False)
             self.relu = nn.ReLU(inplace=True)
 
         elif block_type == 'down':
@@ -36,9 +35,12 @@ class ConvTrans(nn.Module):
         if self.use_bn:
             x = self.bn(x)
         x = self.relu(x)
-
         return x
 
+
+############################################################################
+# Generator and Discriminator
+############################################################################
 
 class Generator(nn.Module):
     """Generator"""
@@ -53,8 +55,9 @@ class Generator(nn.Module):
             filts = int(filts // 2)
 
         operations += [ConvTrans(ic=filts, oc=filts, kernel_size=3, padding=1, stride=1, block_type='up')]
-        operations += [nn.ConvTranspose2d(in_channels=filts, out_channels=channels, kernel_size=kernel_size,
-                                          stride=2, bias=False, padding=1)]
+        operations += [nn.ConvTranspose2d(in_channels=filts, out_channels=channels, kernel_size=kernel_size, stride=2,
+                                          bias=False,padding=1)]
+
         self.model = nn.Sequential(*operations)
 
     def forward(self, x):

@@ -8,13 +8,12 @@ from torchvision import transforms
 import torch
 
 
-####################################################################################
-# LOADERDS
-#################################################################################
-
+############################################################################
+#  Loader utilities
+############################################################################
 
 class NormDenorm:
-    # store mean and std for transforms, apply normilization and denormalization
+    # Store mean and std for transforms, apply normalization and de-normalization
     def __init__(self, mean, std):
         self.mean = np.array(mean, dtype=np.float32)
         self.std = np.array(std, dtype=np.float32)
@@ -27,7 +26,7 @@ class NormDenorm:
 
 
 def cv2_open(fn):
-    # get image with cv2 and convert from bgr to rgb
+    # Get image with cv2 and convert from bgr to rgb
     try:
         im = cv2.imread(str(fn), cv2.IMREAD_UNCHANGED + cv2.IMREAD_ANYDEPTH + cv2.IMREAD_ANYCOLOR).astype(
             np.float32) / 255
@@ -36,7 +35,12 @@ def cv2_open(fn):
         print(f'Image Open Failure:{fn}  Error:{e}')
 
 
+############################################################################
+#  Image augmentation
+############################################################################
+
 def make_img_square(input_img):
+    # Take rectangular image and crop to squre
     height = input_img.shape[0]
     width = input_img.shape[1]
     if height > width:
@@ -48,7 +52,6 @@ def make_img_square(input_img):
 
 class FlipCV(object):
     # resize image and bbox #
-
     def __init__(self, p_x=.5, p_y=.5):
         self.p_x = p_x
         self.p_y = p_y
@@ -82,9 +85,12 @@ class ResizeCV(object):
         return {'image': image}
 
 
-class RandomImageDataset(Dataset):
-    # Load Image and Apply Augmentation #
+############################################################################
+#  Dataset and Loader
+############################################################################
 
+class RandomImageDataset(Dataset):
+    # Load Image and Apply Augmentation
     def get_train_and_test_ids(self, perc):
         total_count = len(self.path_list_a)
         ids = list(range(total_count))
@@ -100,7 +106,7 @@ class RandomImageDataset(Dataset):
         self.output_res = output_res
 
     def transform_set(self, image):
-        # adding some slight randomization to the imagess #
+        # Apply augmentation
         trans_dict = {'image': image}
         data_transforms = transforms.Compose([ResizeCV(self.output_res), FlipCV(p_x=.5, p_y=0)])
 
@@ -121,7 +127,7 @@ class RandomImageDataset(Dataset):
 
 
 def data_load(path_a, transform, batch_size, shuffle=False, output_res=128, perc=.1):
-    # Wrapper for nornal loader #
+    # Wrapper for loader
     dataset = RandomImageDataset(path_a, transform, output_res=output_res, perc=perc)
     datalen = dataset.__len__()
     return torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=1, shuffle=shuffle), datalen
