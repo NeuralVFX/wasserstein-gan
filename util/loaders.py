@@ -1,4 +1,3 @@
-# LOADERS FOR TRAINING AND TESTING#
 import numpy as np
 import glob
 import random
