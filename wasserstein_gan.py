@@ -86,6 +86,7 @@ class WassGan:
             self.loss_batch_dict[loss] = []
 
     def load_state(self, filepath):
+        # Load previously saved sate from disk, including models, optimizers and history
         state = torch.load(filepath)
         self.current_iter = state['iter'] + 1
         self.current_epoch = state['epoch'] + 1
@@ -96,6 +97,7 @@ class WassGan:
         self.train_hist_dict = state['train_hist']
 
     def save_state(self, filepath):
+        # Save current state of all models, optimizers and history to disk
         out_model_dict = {}
         out_opt_dict = {}
         for i in self.model_dict.keys():
@@ -111,6 +113,7 @@ class WassGan:
         return f'Saving State at Iter:{self.current_iter}'
 
     def display_history(self):
+        # Draw history of losses, called at end of training
         fig = plt.figure()
         for key in self.losses:
             x = range(len(self.train_hist_dict[key]))
@@ -126,19 +129,21 @@ class WassGan:
         plt.close(fig)
 
     def set_grad_req(self, d=True, g=True):
+        # Easily enable and disable gradient storage per model
         for par in self.model_dict["D"].parameters():
             par.requires_grad = d
         for par in self.model_dict["G"].parameters():
             par.requires_grad = g
 
     def train_disc(self, data_iter):
+        # Train the discriminator on one batch of data
         real = Variable(data_iter.next()).cuda()
 
         # clip weights in D
         for par in self.model_dict["D"].parameters():
             par.data.clamp_(-.01, .01)
 
-        # zerp the gradient
+        # zerpo the gradient
         self.opt_dict["D"].zero_grad()
 
         # generate Z
@@ -156,6 +161,7 @@ class WassGan:
         self.opt_dict["D"].step()
 
     def train_gen(self):
+        # train the generator on one batch of data
 
         # zero gradient
         self.opt_dict["G"].zero_grad()
@@ -171,6 +177,7 @@ class WassGan:
         self.opt_dict["G"].step()
 
     def train(self):
+        # Train loop using custom batch feeder to pull samples
         params = self.params
         for epoch in range(params["train_epoch"]):
 
@@ -190,10 +197,12 @@ class WassGan:
             epoch_iter_count = 0
             epoch_start_time = time.time()
 
+            # Run progress bar for length of dataset
             with tqdm(total=self.data_len) as epoch_bar:
 
                 while epoch_iter_count < self.data_len:
 
+                    # Set how many times to train discriminator ber loop
                     disc_loop_total = 100 if ((self.current_iter < 25) or (self.current_iter % 500 == 0)) else 5
                     self.set_grad_req(d=True, g=False)
 
@@ -211,12 +220,13 @@ class WassGan:
                     self.set_grad_req(d=False, g=True)
                     self.train_gen()
 
-                    # append all losses in loss dict #
+                    # append all losses in loss dict
                     [self.loss_epoch_dict[loss].append(self.loss_batch_dict[loss].data[0]) for loss in self.losses]
                     self.current_iter += 1
 
             self.current_epoch += 1
 
+            # Save model state and test image to disc
             if self.current_epoch % params['save_every'] == 0:
                 helper.show_test(self.model_dict['G'], Variable(self.preview_noise),
                                  save=f'output/{params["save_root"]}_{self.current_epoch}.jpg')

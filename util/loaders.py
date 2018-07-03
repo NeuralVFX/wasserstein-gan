@@ -50,7 +50,7 @@ def make_img_square(input_img):
 
 
 class FlipCV(object):
-    # resize image and bbox #
+    # resize image and bbox
     def __init__(self, p_x=.5, p_y=.5):
         self.p_x = p_x
         self.p_y = p_y
@@ -73,7 +73,7 @@ class FlipCV(object):
 
 
 class ResizeCV(object):
-    # resize image and bbox #
+    # resize image and bbox
     def __init__(self, output_size):
         self.output_size = output_size
 
