@@ -181,7 +181,7 @@ class WassGan:
         params = self.params
         for epoch in range(params["train_epoch"]):
 
-            # clear last epopchs losses
+            # clear last epochs losses
             for loss in self.losses:
                 self.loss_epoch_dict[loss] = []
 
