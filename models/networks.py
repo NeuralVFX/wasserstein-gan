@@ -8,7 +8,7 @@ import torch.nn as nn
 ############################################################################
 
 class ConvTrans(nn.Module):
-    """One Block to be used as conv and transpose throughout the model"""
+    #One block to be used as conv and transpose throughout the model
 
     def __init__(self, ic=4, oc=4, kernel_size=3, block_type='res', padding=None, stride=2, use_bn=True):
         super(ConvTrans, self).__init__()
@@ -43,7 +43,7 @@ class ConvTrans(nn.Module):
 ############################################################################
 
 class Generator(nn.Module):
-    """Generator"""
+    #Generator#
 
     def __init__(self, layers=7, z_size=100, filts=1024, kernel_size=4, channels=3):
         super(Generator, self).__init__()
@@ -65,7 +65,7 @@ class Generator(nn.Module):
 
 
 class Discriminator(nn.Module):
-    """Discriminator grown from smallest layer"""
+    #Discriminator grown in reverse#
 
     def __init__(self, channels=3, filts=512, kernel_size=4, layers=5):
         super(Discriminator, self).__init__()
