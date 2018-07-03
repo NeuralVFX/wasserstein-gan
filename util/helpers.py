@@ -65,7 +65,7 @@ class BatchFeeder:
 def show_test(gen, z, save):
     # Generate samples from z vector, show and also save
     gen.eval()
-    results = gen(z, seed = 5)
+    results = gen(z)
     gen.train()
     fig, axes = plt.subplots(4, 4, figsize=(12, 12))
     for i, ax in enumerate(axes.flat):

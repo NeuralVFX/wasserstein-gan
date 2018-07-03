@@ -45,7 +45,7 @@ class WassGan:
         self.opt_dict = {}
         self.current_epoch = 0
         self.current_iter = 0
-        self.preview_noise = helper.new_random_z(16, params['z_size'])
+        self.preview_noise = helper.new_random_z(16, params['z_size'], seed = 3)
 
         self.transform = load.NormDenorm([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 
@@ -181,7 +181,7 @@ class WassGan:
         params = self.params
         for epoch in range(params["train_epoch"]):
 
-            # clear last epochs losses
+            # clear last epopchs losses
             for loss in self.losses:
                 self.loss_epoch_dict[loss] = []
 
@@ -202,7 +202,7 @@ class WassGan:
 
                 while epoch_iter_count < self.data_len:
 
-                    # Set how many times to train discriminator ber loop
+                    # Set Discriminator loop length, should start large and then
                     disc_loop_total = 100 if ((self.current_iter < 25) or (self.current_iter % 500 == 0)) else 5
                     self.set_grad_req(d=True, g=False)
 
@@ -220,13 +220,12 @@ class WassGan:
                     self.set_grad_req(d=False, g=True)
                     self.train_gen()
 
-                    # append all losses in loss dict
+                    # append all losses in loss dict #
                     [self.loss_epoch_dict[loss].append(self.loss_batch_dict[loss].data[0]) for loss in self.losses]
                     self.current_iter += 1
 
             self.current_epoch += 1
 
-            # Save model state and test image to disc
             if self.current_epoch % params['save_every'] == 0:
                 helper.show_test(self.model_dict['G'], Variable(self.preview_noise),
                                  save=f'output/{params["save_root"]}_{self.current_epoch}.jpg')
