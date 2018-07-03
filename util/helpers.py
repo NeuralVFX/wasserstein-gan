@@ -31,8 +31,10 @@ def weights_init_normal(m):
         nn.init.normal(m.weight.data, 0, .02)
 
 
-def new_random_z(bs, z):
+def new_random_z(bs, z, seed = False):
     # Creates Z vector of normally distributed noise
+    if seed:
+        torch.manual_seed(seed)
     z = torch.FloatTensor(bs, z, 1, 1).normal_(0, 1).cuda()
     return z
 
@@ -63,7 +65,7 @@ class BatchFeeder:
 def show_test(gen, z, save):
     # Generate samples from z vector, show and also save
     gen.eval()
-    results = gen(z)
+    results = gen(z, seed = 5)
     gen.train()
     fig, axes = plt.subplots(4, 4, figsize=(12, 12))
     for i, ax in enumerate(axes.flat):

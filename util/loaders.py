@@ -91,9 +91,13 @@ class ResizeCV(object):
 
 class RandomImageDataset(Dataset):
     # Load Image and Apply Augmentation
-    def get_train_and_test_ids(self, perc):
+    def get_train_and_test_ids(self, perc, seed = 5):
         total_count = len(self.path_list_a)
         ids = list(range(total_count))
+
+        # seed this consistently even if model restarted
+        np.random.seed(seed)
+
         ids = np.random.permutation(ids)
         split_index = int(total_count * perc)
         test_ids, train_ids = np.split(ids, [split_index])
