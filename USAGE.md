@@ -12,7 +12,7 @@ cd wasserstein-gan
 
 - Extract into `data/bedroom/train`  (I don't have a shell script for this yet)
 
-- Or try any dataset with at least a coupple thousand images of similar domain
+- Or try any dataset with at least a couple thousand images of similar domain
 
 ## Train The Model
 ```bash
