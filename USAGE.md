@@ -80,7 +80,7 @@ Train Dir:
 ![](output/wat_mai_amataros_train_loss.jpg)
 
 - Test Image Example (output every loop through dataset): `output/bedroom_train_255.jpg`
-![](output/wat_mai_amataros_train_255.jpg)
+![](output/bedroom_train_126.jpg)
 
 ## Other Notes
 
