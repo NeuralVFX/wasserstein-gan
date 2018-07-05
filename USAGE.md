@@ -15,9 +15,6 @@ cd wasserstein-gan
 ## Train The Model
 ```bash
 python train.py --dataset bedroom --train_folder train --data_perc .006 --save_root bedroom
-
-
-
 ```
 
 ## Continue Training Existing Saved State
@@ -51,7 +48,7 @@ python train.py --load_state output/lsun_006_perc_24.json --dataset bedroom --tr
 
 - This is the folder layout that the data is expected to be in:
 
-`data/<data set>/<train folder>/'
+`data/<data set>/<train folder>/`
 
 - If you have unzipped the bedroom dataset into a train directory it would look like this:
 
