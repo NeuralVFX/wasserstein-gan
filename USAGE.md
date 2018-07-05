@@ -14,12 +14,15 @@ cd wasserstein-gan
 
 ## Train The Model
 ```bash
-python train.py --dataset wat_mai_amataros -- train_epoch 3 --similar_distance 10  --save_root wat_mai_amataros_tain --A morning --B cloudy
+python train.py --dataset bedroom --train_folder train --data_perc .006 --save_root bedroom
+
+
+
 ```
 
 ## Continue Training Existing Saved State
 ```bash
-python train.py --dataset wat_mai_amataros --load_state output/wat_mai_amataros_tain_3.json --train_epoch 8 --similar_distance 10  --save_root wat_mai_amataros_tain --A morning --B cloudy
+python train.py --load_state output/lsun_006_perc_24.json --dataset bedroom --train_folder train --data_perc .006 --save_root bedroom
 ```
 
 ## Command Line Arguments
@@ -58,44 +61,29 @@ python train.py --dataset wat_mai_amataros --load_state output/wat_mai_amataros_
 
 - This is the folder layout that the data is expected to be in:
 
-`data/<data set>/<set type>/<variant>/`
+`data/<data set>/<train folder>/
 
-- For example if you are swapping `sunny` to `cloudy` on the `wat_mai_amataros` training set:
+- If you have unzipped the bedroom dataset into a train directory it would look like this:
 
 Train Dir:
 
-`data/wat_mai_amataros/train/sunny/`
-
-`data/wat_mai_amataros/train/cloudy/`
-
-Test Dir:
-
-`data/wat_mai_amataros/test/sunny/`
-
-`data/wat_mai_amataros/test/cloudy/`
+`data/bedroom/train/`
 
 ## Output Folder Structure
 
 - `weights`, `test images`, `loss graph` and `learning rate graph`, are all output to this directory: `output/<save_root>_*.*`
 
-- Learning Rate Graph Example: `output/wat_mai_amataros_train_learning_rate_schedule.jpg`
+- Learning Rate Graph Example: `output/bedropom_train_learning_rate_schedule.jpg`
 ![](output/wat_mai_amataros_train_learning_rate_schedule.jpg)
 
-- Loss Graph Example: `output/wat_mai_amataros_train_loss.jpg`
+- Loss Graph Example: `output/bedroom_train_loss.jpg`
 ![](output/wat_mai_amataros_train_loss.jpg)
 
-- Test Image Example (output every loop through dataset): `output/wat_mai_amataros_train_255.jpg`
+- Test Image Example (output every loop through dataset): `output/bedroom_train_255.jpg`
 ![](output/wat_mai_amataros_train_255.jpg)
 
 ## Other Notes
 
-- This network is using `Warm Restarts` https://arxiv.org/pdf/1608.03983 , every `train_epoch` is a warm restart
+- The random seed used to generate Z is set to the same value every time a preview iamge is generated
 
-- This network uses a resnet to gather latent vectors of every image in the training set, this is used to measure content similarity between `varient` sets
-
-- The content similarity is stored as a cache, and then the `similar_distance` is used to randomly select similar images between the two sets
-
-- The features of the discriminator are used in an additional loss function, this penalizes the difference in mean and standard deviation between real and fake images (of similar content)
-
-- I notice that on occasion, training gets off to a bad start and just learns to invert the image. It's good to check the first couple epochs output images to ensure that you don't waste days training an image inverter!
 
