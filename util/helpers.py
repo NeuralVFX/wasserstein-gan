@@ -67,7 +67,7 @@ def show_test(gen, z, save):
     gen.eval()
     results = gen(z)
     gen.train()
-    fig, axes = plt.subplots(4, 4, figsize=(12, 12))
+    fig, axes = plt.subplots(4, 4, figsize=(10, 10))
     for i, ax in enumerate(axes.flat):
         ax.imshow(normalize_img(results[i], cpu=True))
     if save:
@@ -78,7 +78,7 @@ def show_test(gen, z, save):
 
 def show_samples(results):
     # Show samples, used to show raw samples from dataset
-    fig, axes = plt.subplots(4, 4, figsize=(12, 12))
+    fig, axes = plt.subplots(4, 4, figsize=(10, 10))
     for i, ax in enumerate(axes.flat):
         ax.imshow(normalize_img(results[i], cpu=True))
     plt.show()
