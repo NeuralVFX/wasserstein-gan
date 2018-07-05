@@ -19,7 +19,7 @@ python train.py --dataset wat_mai_amataros -- train_epoch 3 --similar_distance 1
 
 ## Continue Training Existing Saved State
 ```bash
-train.py --dataset wat_mai_amataros --load_state output/wat_mai_amataros_tain_3.json --train_epoch 8 --similar_distance 10  --save_root wat_mai_amataros_tain --A morning --B cloudy
+python train.py --dataset wat_mai_amataros --load_state output/wat_mai_amataros_tain_3.json --train_epoch 8 --similar_distance 10  --save_root wat_mai_amataros_tain --A morning --B cloudy
 ```
 
 ## Command Line Arguments
