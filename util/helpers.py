@@ -31,7 +31,7 @@ def weights_init_normal(m):
         nn.init.normal(m.weight.data, 0, .02)
 
 
-def new_random_z(bs, z, seed = False):
+def new_random_z(bs, z, seed=False):
     # Creates Z vector of normally distributed noise
     if seed:
         torch.manual_seed(seed)
@@ -61,6 +61,7 @@ class BatchFeeder:
 ############################################################################
 # Display Images
 ############################################################################
+
 
 def show_test(gen, z, save):
     # Generate samples from z vector, show and also save

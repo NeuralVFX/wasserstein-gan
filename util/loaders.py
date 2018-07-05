@@ -91,7 +91,7 @@ class ResizeCV(object):
 
 class RandomImageDataset(Dataset):
     # Load Image and Apply Augmentation
-    def get_train_and_test_ids(self, perc, seed = 5):
+    def get_train_and_test_ids(self, perc, seed=5):
         total_count = len(self.path_list_a)
         ids = list(range(total_count))
 

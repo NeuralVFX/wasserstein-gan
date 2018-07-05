@@ -46,7 +46,7 @@ class WassGan:
         self.opt_dict = {}
         self.current_epoch = 0
         self.current_iter = 0
-        self.preview_noise = helper.new_random_z(16, params['z_size'], seed = 3)
+        self.preview_noise = helper.new_random_z(16, params['z_size'], seed=3)
 
         self.transform = load.NormDenorm([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 

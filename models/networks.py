@@ -54,7 +54,7 @@ class Generator(nn.Module):
 
         operations += [ConvTrans(ic=filts, oc=filts, kernel_size=3, padding=1, stride=1, block_type='up')]
         operations += [nn.ConvTranspose2d(in_channels=filts, out_channels=channels, kernel_size=kernel_size, stride=2,
-                                          bias=False,padding=1)]
+                                          bias=False, padding=1)]
 
         self.model = nn.Sequential(*operations)
 
