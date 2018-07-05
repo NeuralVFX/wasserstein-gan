@@ -79,8 +79,8 @@ Train Dir:
 - Loss Graph Example: `output/bedroom_train_loss.jpg`
 ![](output/wat_mai_amataros_train_loss.jpg)
 
-- Test Image Example (output every loop through dataset): `output/bedroom_train_255.jpg`
-![](output/bedroom_train_126.jpg)
+- Test Image Example (output every loop through dataset): `output/bedroom_126.jpg`
+![](output/bedroom_126.jpg)
 
 ## Other Notes
 
