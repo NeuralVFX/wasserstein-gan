@@ -8,7 +8,9 @@
 git clone https://github.com/NeuralVFX/wasserstein-gan.git
 cd wasserstein-gan
 ```
-- Download the dataset (e.g. [lsun_bedroom (20%)](https://www.kaggle.com/jhoward/lsun_bedroom/downloads/lsun_bedroom.zip/1)):
+- Download the dataset (e.g. [lsun_bedroom subset](https://www.kaggle.com/jhoward/lsun_bedroom/downloads/lsun_bedroom.zip/1)):
+
+- Extract into `data/bedroom/train`  (I don't have a shell script for this yet)
 
 - Or try any dataset with at least a coupple thousand images of similar domain
 
@@ -51,8 +53,6 @@ python train.py --load_state output/lsun_006_perc_24.json --dataset bedroom --tr
 `data/<data set>/<train folder>/`
 
 - If you have unzipped the bedroom dataset into a train directory it would look like this:
-
-Train Dir:
 
 `data/bedroom/train/`
 
