@@ -58,10 +58,7 @@ Train Dir:
 
 ## Output Folder Structure
 
-- `weights`, `test images`, `loss graph` and `learning rate graph`, are all output to this directory: `output/<save_root>_*.*`
-
-- Learning Rate Graph Example: `output/bedropom_train_learning_rate_schedule.jpg`
-![](output/wat_mai_amataros_train_learning_rate_schedule.jpg)
+- `weights`, `test images`, and `loss graph`, are all output to this directory: `output/<save_root>_*.*`
 
 - Loss Graph Example: `output/bedroom_train_loss.jpg`
 ![](output/wat_mai_amataros_train_loss.jpg)
