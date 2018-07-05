@@ -51,7 +51,7 @@ python train.py --load_state output/lsun_006_perc_24.json --dataset bedroom --tr
 
 - This is the folder layout that the data is expected to be in:
 
-`data/<data set>/<train folder>/
+`data/<data set>/<train folder>/'
 
 - If you have unzipped the bedroom dataset into a train directory it would look like this:
 
@@ -75,5 +75,8 @@ Train Dir:
 ## Other Notes
 
 - The random seed used to generate Z is set to the same value every time a preview iamge is generated
+
+- The perc argument is used to train only a small percentage of the training set, usefull for quick tests
+
 
 
