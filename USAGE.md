@@ -64,7 +64,7 @@ python train.py --load_state output/lsun_006_perc_24.json --dataset bedroom --tr
 ![](output/bedroom_loss.jpg)
 
 - Test Image Example (output every loop through dataset): `output/bedroom_126.jpg`
-![](output/bedroom_126.jpg)
+![](output/bedroom_6.jpg)
 
 ## Other Notes
 
