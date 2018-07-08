@@ -61,10 +61,10 @@ python train.py --load_state output/lsun_006_perc_24.json --dataset bedroom --tr
 - `weights`, `test images`, and `loss graph`, are all output to this directory: `output/<save_root>_*.*`
 
 - Loss Graph Example: `output/bedroom_loss.jpg`
-![](output/wat_mai_amataros_train_loss.jpg)
+![](output/bedroom_loss.jpg)
 
 - Test Image Example (output every loop through dataset): `output/bedroom_126.jpg`
-![](output/bedroom_126.jpg)
+![](output/bedroom_6.jpg)
 
 ## Other Notes
 
