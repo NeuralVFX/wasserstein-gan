@@ -124,7 +124,7 @@ class RandomImageDataset(Dataset):
         data_transforms = transforms.Compose([ResizeCV(self.output_res), FlipCV(p_x=.5, p_y=0)])
 
         trans_dict = data_transforms(trans_dict)
-        return np.rollaxis(self.transform.denorm(trans_dict['image']), 2)
+        return np.rollaxis(self.transform.norm(trans_dict['image']), 2)
 
     def __getitem__(self, index):
         lookup_id = self.ids[index]
