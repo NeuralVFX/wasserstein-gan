@@ -19,7 +19,8 @@ class NormDenorm:
 
     def norm(self, img):
         # normalize image to feed to network
-        return img * self.std + self.mean
+        img = img.numpy().transpose(1, 2, 0)
+        return (img - self.mean) / self.std
 
     def denorm(self, img, cpu=True, variable=True):
         # reverse normalization for viewing
@@ -27,9 +28,8 @@ class NormDenorm:
             img = img.cpu()
         if variable:
             img = img.data
+        return img * self.std + self.mean
 
-        img = img.numpy().transpose(1, 2, 0)
-        return (img - self.mean) / self.std
 
 
 def cv2_open(fn):
