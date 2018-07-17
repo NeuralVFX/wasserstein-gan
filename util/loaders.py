@@ -107,7 +107,7 @@ class RandomImageDataset(Dataset):
     def __init__(self, path_a, transform, output_res=64, perc=.1):
         self.transform = transform
         self.path_list_a = sorted(glob.glob(f'{path_a}/*.*'))
-        self.ids = self.get_train_and_test_ids(perc)
+        self.ids = self.get_subset(perc)
         self.output_res = output_res
 
     def transform_set(self, image):
