@@ -91,7 +91,8 @@ class ResizeCV(object):
 
 class RandomImageDataset(Dataset):
     # Load Image and Apply Augmentation
-    def get_train_and_test_ids(self, perc, seed=5):
+    def get_subset(self, perc, seed=5):
+        # use to only load a percentage of the training set
         total_count = len(self.path_list_a)
         ids = list(range(total_count))
 
@@ -100,8 +101,8 @@ class RandomImageDataset(Dataset):
 
         ids = np.random.permutation(ids)
         split_index = int(total_count * perc)
-        test_ids, train_ids = np.split(ids, [split_index])
-        return test_ids
+        subset_ids = ids[:split_index]
+        return subset_ids
 
     def __init__(self, path_a, transform, output_res=64, perc=.1):
         self.transform = transform

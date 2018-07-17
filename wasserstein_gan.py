@@ -92,14 +92,11 @@ class WassGan:
         state = torch.load(filepath)
         self.current_iter = state['iter'] + 1
         self.current_epoch = state['epoch'] + 1
-
         for i in self.model_dict.keys():
             self.model_dict[i].load_state_dict(state['models'][i])
         for i in self.opt_dict.keys():
             self.opt_dict[i].load_state_dict(state['optimizers'][i])
-
         self.train_hist_dict = state['train_hist']
-        self.train_hist_dict_test = state['train_hist_test']
 
     def save_state(self, filepath):
         # Save current state of all models, optimizers and history to disk
@@ -109,15 +106,11 @@ class WassGan:
             out_model_dict[i] = self.model_dict[i].state_dict()
         for i in self.opt_dict.keys():
             out_opt_dict[i] = self.opt_dict[i].state_dict()
-
         model_state = {'iter': self.current_iter,
                        'epoch': self.current_epoch,
                        'models': out_model_dict,
                        'optimizers': out_opt_dict,
-                       'train_hist': self.train_hist_dict,
-                       'train_hist_test': self.train_hist_dict_test
-                       }
-
+                       'train_hist': self.train_hist_dict}
         torch.save(model_state, filepath)
         return f'Saving State at Iter:{self.current_iter}'
 
