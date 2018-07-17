@@ -38,6 +38,7 @@ class WassGan:
                   'save_root': 'lsun_test'}
 
     wgan = WassGan(params)
+    wgan.train()
     """
 
     def __init__(self, params):
