@@ -14,14 +14,6 @@ def mft(tensor):
     # Return mean float tensor
     return torch.mean(torch.FloatTensor(tensor))
 
-
-def normalize_img(x, cpu=False):
-    # Reverse Image Normalization
-    if cpu:
-        x = x.cpu().data
-    return (x.numpy().transpose(1, 2, 0) + 1) / 2
-
-
 def weights_init_normal(m):
     # Set initial state of weights
     classname = m.__class__.__name__
