@@ -19,7 +19,6 @@ class NormDenorm:
 
     def norm(self, img):
         # normalize image to feed to network
-        img = img.numpy().transpose(1, 2, 0)
         return (img - self.mean) / self.std
 
     def denorm(self, img, cpu=True, variable=True):
@@ -28,6 +27,7 @@ class NormDenorm:
             img = img.cpu()
         if variable:
             img = img.data
+        img = img.numpy().transpose(1, 2, 0)
         return img * self.std + self.mean
 
 
