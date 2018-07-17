@@ -63,24 +63,27 @@ class BatchFeeder:
 ############################################################################
 
 
-def show_test(gen, z, save):
+def show_test(gen, z, denorm, save=False):
     # Generate samples from z vector, show and also save
     gen.eval()
     results = gen(z)
     gen.train()
     fig, axes = plt.subplots(4, 4, figsize=(10, 10))
     for i, ax in enumerate(axes.flat):
-        ax.imshow(normalize_img(results[i], cpu=True))
+        ax.imshow(denorm.denorm(results[i]))
+
     if save:
         plt.savefig(save)
+
     plt.show()
     plt.close(fig)
 
 
-def show_samples(results):
+def show_samples(results, denorm):
     # Show samples, used to show raw samples from dataset
     fig, axes = plt.subplots(4, 4, figsize=(10, 10))
     for i, ax in enumerate(axes.flat):
-        ax.imshow(normalize_img(results[i], cpu=True))
+        ax.imshow(denorm.denorm(results[i]))
+
     plt.show()
     plt.close(fig)

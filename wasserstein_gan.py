@@ -52,15 +52,21 @@ class WassGan:
         self.transform = load.NormDenorm([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 
         self.train_loader, self.data_len = load.data_load(f'data/{params["dataset"]}/{params["train_folder"]}/',
-                                                          self.transform, params["batch_size"], shuffle=True,
-                                                          perc=params["data_perc"], output_res=params["output_size"])
+                                                          self.transform,
+                                                          params["batch_size"],
+                                                          shuffle=True,
+                                                          perc=params["data_perc"],
+                                                          output_res=params["output_size"])
 
         print(f'Data Loader Initialized: {self.data_len} Images')
 
-        self.model_dict["G"] = n.Generator(layers=params["gen_layers"], filts=params["gen_filters"],
-                                           channels=params["in_channels"], z_size=params['z_size'])
+        self.model_dict["G"] = n.Generator(layers=params["gen_layers"],
+                                           filts=params["gen_filters"],
+                                           channels=params["in_channels"],
+                                           z_size=params['z_size'])
 
-        self.model_dict["D"] = n.Discriminator(layers=params["disc_layers"], filts=params["disc_filters"],
+        self.model_dict["D"] = n.Discriminator(layers=params["disc_layers"],
+                                               filts=params["disc_filters"],
                                                channels=params["in_channels"])
 
         for i in self.model_dict.keys():
@@ -229,8 +235,11 @@ class WassGan:
             self.current_epoch += 1
 
             if self.current_epoch % params['save_every'] == 0:
-                helper.show_test(self.model_dict['G'], Variable(self.preview_noise),
+                helper.show_test(self.model_dict['G'],
+                                 Variable(self.preview_noise),
+                                 self.transform,
                                  save=f'output/{params["save_root"]}_{self.current_epoch}.jpg')
+
                 save_str = self.save_state(f'output/{params["save_root"]}_{self.current_epoch}.json')
                 print(save_str)
 

@@ -18,9 +18,17 @@ class NormDenorm:
         self.std = np.array(std, dtype=np.float32)
 
     def norm(self, img):
+        # normalize image to feed to network
         return img * self.std + self.mean
 
-    def denorm(self, img):
+    def denorm(self, img, cpu=True, variable=True):
+        # reverse normalization for viewing
+        if cpu:
+            img = img.cpu()
+        if variable:
+            img = img.data
+
+        img = img.numpy().transpose(1, 2, 0)
         return (img - self.mean) / self.std
 
 
